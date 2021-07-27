@@ -42,10 +42,10 @@ const CommentList = () => {
   const loadComment = useCallback(async ({ page } = {}) => {
     try {
       setLoading(true);
+
       const newComments = await getComments(page);
       setComments((prev) => [...prev, ...newComments]);
 
-      setLoading(false);
       return newComments;
     } catch (e) {
       console.log(e);
@@ -54,19 +54,19 @@ const CommentList = () => {
     }
   }, []);
 
-  useEffect(() => {
-    loadComment();
-  }, []);
-
   const loadMoreComments = useCallback(async () => {
     if (comments.length > 0) {
       currentPage.current++;
-      const data = await loadComment({
+
+      loadComment({
         page: currentPage.current,
       });
-      setComments([...comments, ...data]);
     }
   }, [comments, loadComment]);
+
+  useEffect(() => {
+    loadComment();
+  }, []);
 
   useInfiniteScroll({
     target: targetRef.current,
