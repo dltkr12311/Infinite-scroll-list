@@ -7,7 +7,7 @@ const reset = css`
     padding: 0;
   }
   em {
-    font-style: none;
+    font-style: normal;
   }
   li {
     list-style: none;
