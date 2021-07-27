@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import styled from "@emotion/styled";
-
 import CommentListItem from "./CommentListItem";
 import getComments from "../api/comment";
+import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 
 const ListWrapper = styled.ul`
   margin: 33px auto;
@@ -32,21 +32,50 @@ const LoadingBar = styled.p`
 `;
 
 const CommentList = () => {
+  const currentPage = useRef(1);
+
+  const targetRef = useRef(null);
+
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const [page, setPage] = useState(1);
+  const loadComment = useCallback(async ({ page } = {}) => {
+    try {
+      setLoading(true);
+      const newComments = await getComments(page);
+      setComments((prev) => [...prev, ...newComments]);
+
+      setLoading(false);
+      return newComments;
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
-    const loadComments = async () => {
-      setLoading(true);
-      const newComments = await getComments();
-      setComments((prev) => [...prev, ...newComments]);
-      setLoading(false);
-    };
-
-    loadComments();
+    loadComment();
   }, []);
+
+  const loadMoreComments = useCallback(async () => {
+    if (comments.length > 0) {
+      currentPage.current++;
+      const data = await loadComment({
+        page: currentPage.current,
+      });
+      setComments([...comments, ...data]);
+    }
+  }, [comments, loadComment]);
+
+  useInfiniteScroll({
+    target: targetRef.current,
+    onIntersect: ([{ isIntersecting }]) => {
+      if (isIntersecting && !loading) {
+        loadMoreComments();
+      }
+    },
+  });
 
   return (
     <>
@@ -59,6 +88,7 @@ const CommentList = () => {
         {comments.map((comment) => (
           <CommentListItem key={comment.id} comment={comment} />
         ))}
+        <div ref={targetRef} />
       </ListWrapper>
     </>
   );

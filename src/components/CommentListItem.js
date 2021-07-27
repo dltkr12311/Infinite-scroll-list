@@ -1,5 +1,4 @@
 import React from "react";
-
 import styled from "@emotion/styled";
 
 const ItemWrap = styled.li`
@@ -30,13 +29,12 @@ const Item = styled.p`
 `;
 
 const CommentListItem = ({ comment }) => {
-  const { postId, email, body } = comment;
-
+  const { id, email, body } = comment;
   return (
     <ItemWrap>
       <Item>
         <em>Comment Id</em>
-        <span>{postId}</span>
+        <span>{id}</span>
       </Item>
       <Item>
         <em>Email</em>
