@@ -1,7 +1,10 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import styled from "@emotion/styled";
+
 import CommentListItem from "./CommentListItem";
+
 import getComments from "../api/comment";
+
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 
 const ListWrapper = styled.ul`
