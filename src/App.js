@@ -1,7 +1,7 @@
 import { Global } from "@emotion/react";
 
-import reset from "../styles/Reset";
-import CommentList from "./CommentList";
+import reset from "./styles/reset";
+import CommentList from "./components/CommentList";
 
 function App() {
   return (

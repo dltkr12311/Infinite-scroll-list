@@ -1,11 +1,10 @@
-# 1주차 첫번째 과제
+# InfiniteScroll Refator
 
-organization를 생성하여 만든 저장소입니다
-
-### 참여자
-- 윤해은
-- 이 삭
-
+## 바뀔점
+- 폴더 구조 변경 
+- 스타일 밑으로 변경
+- 로딩중 변경
+- 맨 마지막 확인 후 종료
 ### 과제 구현 목록
 - [x] List Item
 - [x] infinite scroll 구현

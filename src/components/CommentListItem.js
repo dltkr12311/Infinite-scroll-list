@@ -1,7 +1,29 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-const ItemWrap = styled.li`
+const CommentListItem = ({ comment }) => {
+  const { id, email, body } = comment;
+  return (
+    <ItemWraper>
+      <Item>
+        <em>Comment Id</em>
+        <span>{id}</span>
+      </Item>
+      <Item>
+        <em>Email</em>
+        <span>{email}</span>
+      </Item>
+      <Item lineBreak>
+        <em>Comment</em>
+        <span>{body}</span>
+      </Item>
+    </ItemWraper>
+  );
+};
+
+export default CommentListItem;
+
+const ItemWraper = styled.li`
   padding: 20px;
   background: #f8f9fa;
   border: 0.5px solid #ced4da;
@@ -27,25 +49,3 @@ const Item = styled.p`
     display: ${({ lineBreak }) => lineBreak && "block"};
   }
 `;
-
-const CommentListItem = ({ comment }) => {
-  const { id, email, body } = comment;
-  return (
-    <ItemWrap>
-      <Item>
-        <em>Comment Id</em>
-        <span>{id}</span>
-      </Item>
-      <Item>
-        <em>Email</em>
-        <span>{email}</span>
-      </Item>
-      <Item lineBreak>
-        <em>Comment</em>
-        <span>{body}</span>
-      </Item>
-    </ItemWrap>
-  );
-};
-
-export default CommentListItem;

@@ -7,32 +7,7 @@ import getComments from "../api/comment";
 
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 
-const ListWrapper = styled.ul`
-  margin: 33px auto;
-  width: 500px;
-`;
 
-const LoadingBar = styled.p`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.3);
-  span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 200px;
-    height: 200px;
-    padding: 50px;
-    background: #fff;
-    border-radius: 50%;
-  }
-`;
 
 const CommentList = () => {
   const currentPage = useRef(1);
@@ -50,9 +25,11 @@ const CommentList = () => {
       setComments((prev) => [...prev, ...newComments]);
 
       return newComments;
-    } catch (e) {
+    } 
+    catch (e) {
       console.log(e);
-    } finally {
+    } 
+    finally {
       setLoading(false);
     }
   }, []);
@@ -98,3 +75,31 @@ const CommentList = () => {
 };
 
 export default CommentList;
+
+
+const ListWrapper = styled.ul`
+  margin: 33px auto;
+  width: 500px;
+`;
+
+const LoadingBar = styled.p`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 200px;
+    padding: 50px;
+    background: #fff;
+    border-radius: 50%;
+  }
+`;
