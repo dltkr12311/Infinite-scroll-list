@@ -1,20 +1,36 @@
-# InfiniteScroll Refator
+## 리펙토링
 
-## 바뀔점
-- 폴더 구조 변경 
-- 스타일 밑으로 변경
-- 로딩중 변경
-- 맨 마지막 확인 후 종료
-### 과제 구현 목록
-- [x] List Item
-- [x] infinite scroll 구현
-- [x] data fetching
+---
 
-### 설치 및 실행
-`npm install`명령어 입력 후 설치 하고 `npm start`명령어 입력 후 실행
+### 설치
 
-### 기능 영상
-![ezgif com-gif-maker](https://user-images.githubusercontent.com/60437099/127156960-6db30b82-e524-47b4-a1e5-9b5a84e2189f.gif)
+`npm intsall`
 
-### 폴더 구조
-![image](https://user-images.githubusercontent.com/53102889/127242935-5a2f5a25-f70c-477a-8db0-1a37e2238375.png)
+### 실행
+
+`npm start`
+
+### 선정 이유
+
+- 이번 리펙토링은 맨 처음 팀 미션때 했던 하얀마인드 과제(InfiniteScroll)를 해보려고 합니다. 이유는 검색이 완료되면 완료 되었다는걸 알려줘야 하는데 계속 로딩중이라고 나타는 버그가 있어서 수정을 해보려고 합니다 그리고간단하지만 컴포넌트 설계 구조, 확장 가능성 등을 생각하지 않고 작성해서 이 부분도 수정할 생각이고 마지막으로 아직 리펙토링 하기에 부족한 실력(코드 구현만으로 만족)단계여서 간단한것들 부터 한단계씩 올라가며 리펙토링 할 계획을 갖고있습니다.
+
+### 문제점
+
+1. 검색이 완료되었음에도 로딩중이라고 출력됨.
+2. 컴포넌트에 작성된 스타일 위에서 작성되어 있음 가독성이 좋지 않음.
+3. 컴포넌트 폴더 구조(관심사 분리)
+   1. 확장 가능성 고려
+
+### 수정 사항
+
+- 기존 `App.js` 위치가 `src/componetns` 안에 있었는데 `src` 하위 디렉토리로 변경 하였고 기존 `api` 폴더가 따로 있었는데 `services/utils` 폴더로 만들어서 관리하는거로 바꿨음. (옮긴 이유는 유틸성 컴포넌트들은 서비스라는 폴더안에 관리하는게 깔끔해 보여서 바꿨음)
+
+- 기존 마지막 요소에서 스크롤 내리면 로딩중 화면이 출력되었는데 `hasMore` 이라는 상태를 추가해서 마지막 요소를 판별해서 마지막 요소라면 로딩을 `false`로 바꾸었다.
+
+  **Before**
+
+![before](https://user-images.githubusercontent.com/60437099/129448590-46e68464-2ed3-464f-8390-859cea980637.gif)
+
+**After**
+
+![after](https://user-images.githubusercontent.com/60437099/129448604-92a24d2b-3489-4f9c-92ac-877d0eb779fc.gif)

@@ -3,7 +3,6 @@ import { useEffect } from "react";
 export const useInfiniteScroll = ({ target, onIntersect }) => {
   useEffect(() => {
     const observer = new IntersectionObserver(onIntersect);
-
     if (!target) {
       return;
     }
@@ -11,7 +10,7 @@ export const useInfiniteScroll = ({ target, onIntersect }) => {
     observer.observe(target);
 
     return () => {
-      observer.unobserve(target);
+      observer?.disconnect();
     };
   }, [target, onIntersect]);
 };

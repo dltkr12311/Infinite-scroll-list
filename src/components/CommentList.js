@@ -3,11 +3,9 @@ import styled from "@emotion/styled";
 
 import CommentListItem from "./CommentListItem";
 
-import getComments from "../api/comment";
+import getComments from "services/utils/commentAPI";
 
-import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
-
-
+import { useInfiniteScroll } from "hooks/useInfiniteScroll";
 
 const CommentList = () => {
   const currentPage = useRef(1);
@@ -16,31 +14,32 @@ const CommentList = () => {
 
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(false);
 
   const loadComment = useCallback(async ({ page } = {}) => {
     try {
       setLoading(true);
-
       const newComments = await getComments(page);
-      setComments((prev) => [...prev, ...newComments]);
-
+      setComments((prev) => [...new Set([...prev, ...newComments])]);
+      setHasMore(newComments.length > 0);
+      setLoading(false);
       return newComments;
-    } 
-    catch (e) {
+    } catch (e) {
       console.log(e);
-    } 
-    finally {
+    } finally {
       setLoading(false);
     }
   }, []);
 
   const loadMoreComments = useCallback(async () => {
     if (comments.length > 0) {
+      console.log(comments.length);
       currentPage.current++;
-
       loadComment({
         page: currentPage.current,
       });
+    } else if (!comments.length++) {
+      setLoading(false);
     }
   }, [comments, loadComment]);
 
@@ -51,7 +50,7 @@ const CommentList = () => {
   useInfiniteScroll({
     target: targetRef.current,
     onIntersect: ([{ isIntersecting }]) => {
-      if (isIntersecting && !loading) {
+      if (isIntersecting && !loading && hasMore) {
         loadMoreComments();
       }
     },
@@ -75,7 +74,6 @@ const CommentList = () => {
 };
 
 export default CommentList;
-
 
 const ListWrapper = styled.ul`
   margin: 33px auto;

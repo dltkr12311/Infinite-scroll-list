@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 
 const CommentListItem = ({ comment }) => {
+  console.log(comment.id, "comment");
   const { id, email, body } = comment;
   return (
     <ItemWraper>
