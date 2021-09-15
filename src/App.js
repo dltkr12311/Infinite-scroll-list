@@ -1,12 +1,12 @@
 import { Global } from "@emotion/react";
 
-import { resets } from "./styles/reset";
+import { reset } from "./style/reset";
 import Comments from "pages/Comments/Comments";
 
 function App() {
   return (
     <>
-      <Global styles={resets} />
+      <Global styles={reset} />
       <Comments />
     </>
   );
