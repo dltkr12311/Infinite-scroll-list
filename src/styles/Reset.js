@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-export const reset = css`
+export const resets = css`
   * {
     box-sizing: border-box;
     margin: 0;
