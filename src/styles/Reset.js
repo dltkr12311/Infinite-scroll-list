@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-const reset = css`
+export const reset = css`
   * {
     box-sizing: border-box;
     margin: 0;
@@ -17,5 +17,3 @@ const reset = css`
     touch-action: none;
   }
 `;
-
-export default reset;
