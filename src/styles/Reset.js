@@ -12,6 +12,10 @@ const reset = css`
   li {
     list-style: none;
   }
+
+  body {
+    touch-action: none;
+  }
 `;
 
 export default reset;
