@@ -45,6 +45,7 @@ const CommentList = () => {
 
   useEffect(() => {
     loadComment();
+    // eslint-disable-next-line
   }, []);
 
   useInfiniteScroll({
