@@ -1,6 +1,6 @@
 import React from "react";
 import CommentList from "components/CommentList";
-const Comments = () => {
+const Comments: React.FC = () => {
   return (
     <>
       <CommentList />

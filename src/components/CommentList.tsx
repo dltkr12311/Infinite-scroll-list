@@ -1,20 +1,23 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import styled from "@emotion/styled";
-
 import CommentListItem from "./CommentListItem";
-
 import getComments from "services/utils/commentAPI";
-
 import { useInfiniteScroll } from "hooks/useInfiniteScroll";
 
-const CommentList = () => {
+interface CommentsProps {
+  id: number;
+  email: string;
+  body: string;
+}
+
+const CommentList: React.FC = () => {
   const currentPage = useRef(1);
 
   const targetRef = useRef(null);
 
-  const [comments, setComments] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(false);
+  const [comments, setComments] = useState<Array<CommentsProps>>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [hasMore, setHasMore] = useState<boolean>(false);
 
   const loadComment = useCallback(async ({ page } = {}) => {
     try {
@@ -33,7 +36,6 @@ const CommentList = () => {
 
   const loadMoreComments = useCallback(async () => {
     if (comments.length > 0) {
-      console.log(comments.length);
       currentPage.current++;
       loadComment({
         page: currentPage.current,
@@ -50,7 +52,7 @@ const CommentList = () => {
 
   useInfiniteScroll({
     target: targetRef.current,
-    onIntersect: ([{ isIntersecting }]) => {
+    onIntersect: ([{ isIntersecting }]: any) => {
       if (isIntersecting && !loading && hasMore) {
         loadMoreComments();
       }
@@ -66,7 +68,7 @@ const CommentList = () => {
       )}
       <ListWrapper>
         {comments.map((comment) => (
-          <CommentListItem key={comment.id} comment={comment} />
+          <CommentListItem key={comment.id} comment={comment} id={undefined} />
         ))}
         <div ref={targetRef} />
       </ListWrapper>

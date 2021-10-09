@@ -1,16 +1,28 @@
-import React from "react";
+import React, { Key } from "react";
 import styled from "@emotion/styled";
 
-const CommentListItem = ({ comment }) => {
-  console.log(comment.id, "comment");
+export interface CommentProps {
+  id: Key | null | undefined;
+  comment: {
+    id: number;
+    email: string;
+    body: string;
+  };
+}
+
+interface ComponentsProps {
+  lineBreak: boolean;
+}
+
+const CommentListItem: React.FC<CommentProps> = ({ comment }) => {
   const { id, email, body } = comment;
   return (
     <ItemWraper>
-      <Item>
+      <Item lineBreak={false}>
         <em>Comment Id</em>
         <span>{id}</span>
       </Item>
-      <Item>
+      <Item lineBreak={false}>
         <em>Email</em>
         <span>{email}</span>
       </Item>
@@ -39,7 +51,7 @@ const ItemWraper = styled.li`
   }
 `;
 
-const Item = styled.p`
+const Item = styled.p<ComponentsProps>`
   & > * {
     font-size: 18px;
   }

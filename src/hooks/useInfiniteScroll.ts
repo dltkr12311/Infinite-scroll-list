@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 
-export const useInfiniteScroll = ({ target, onIntersect }) => {
+export const useInfiniteScroll: (arg0: {
+  target: null;
+  onIntersect: ([{ isIntersecting }]: any) => void;
+}) => void = ({ target, onIntersect }) => {
   useEffect(() => {
     const observer = new IntersectionObserver(onIntersect);
     if (!target) {
